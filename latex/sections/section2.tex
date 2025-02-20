@@ -1,0 +1,123 @@
+Using IB calculus, plus some vectors, we will be able to represent the motion of an object near a Lagrange point using equations.
+It is important, however, that we first establish the system that we will be working with as well as restrictions that will make the mathematics slightly easier.
+\begin{wrapfigure}{l}{0.6\textwidth}
+	\centering
+	\begin{tikzpicture}
+		\coordinate (o) at (0,0,0);
+		\coordinate (m3) at (2.5,2.5,1.5);
+		\coordinate (m2) at (5.19,0,3);
+		\draw[thin,gray,->] (0,0,0) -- (0,0,2) node[below] {$\uvec{x}_0$};
+		\draw[thin,gray,->] (0,0,0) -- (2,0,0) node[right] {$\uvec{y}_0$};
+		
+		\draw[thick,blue] (o) -- (m2) node[midway,yshift=-8pt]{$R$};
+		\draw[thick,red] (o) -- (m3) node[midway,anchor=south east]{$\bvec{\bvec{r}_1}$};
+		\draw[thick,red] (m2) -- (m3) node[midway,anchor=south west]{$\bvec{\bvec{r}_2}$};
+		
+		\draw[very thick,->] (0,0,0) -- (0,2,0) node[above] {$\uvec{z}$};
+		\draw[very thick,->] (0,0,0) -- (1.73,0,0.99) node[below left] {$\uvec{x}$};
+		\draw[very thick,->] (0,0,0) -- (1,0,-1.73) node[right] {$\uvec{y}$};
+		
+		\draw (0,0,0.6) arc [start angle=-90,end angle=-32,x radius=0.8,y radius=0.24];
+		\node at (.5,0,1.2) {$\theta$};
+		
+		\filldraw (0,0,0) circle (3pt) node[above left] {$m_1$ $(0,0,0)$};
+		\filldraw (m2) circle (2pt) node[right] {$m_2$ $(R,0,0)$};
+		\filldraw (m3) circle (1.5pt) node[above right] {$m_3$ $(x,y,z)$};
+	\end{tikzpicture}
+	\vspace*{0.25cm}
+	\caption{three-dimensional diagram of the Sun-Earth system with basis vectors relative to the Earth's orbit. Positions are exaggerated and not to scale.}
+	\label{fig:3d-coords}
+\end{wrapfigure}
+Firstly, we must assert that $m_1 > m_2$, allowing the movement of the Sun due to the gravity of Earth is negligible.
+This allows the Sun to be placed at the center of the coordinate system, avoiding the need to make considerations for the center of mass of the system.
+It is also asserted that $m_2 > m_3$, so that, similarly to the previous assertion, the satellite has a negligible effect on Earth.
+Secondly, continuing with the conditions from the previous calculations, it is assumed that the Earth is in a circular orbit, making the system a little easier to comprehend.
+Thirdly, we assume that the orbit of the Earth has no inclination, meaning that it is co-planar to $\uvec{x}$ and $\uvec{y}$.
+Lastly, and as shown in Figure \ref{fig:3d-coords}, we will have basis vectors $\uvec{x}$, $\uvec{y}$, and $\uvec{z}$ drawn relative to the orbit of the Earth, with initial vectors $\uvec{x}_0$, $\uvec{y}_0$, and $\uvec{z}_0$.
+This is necessary to keep track of three dimensional space around the Lagrange points and also so that we can compose our equations of motion in terms of each dimension.
+The satellite around L2, $m_3$, will have the coordinates $(x,y,z)$ represented by the vector $\bvec{r}$.
+
+It is also important to acknowledge that we will need to take the derivative of vectors. Hence, let us assert that, for some vector \textbf{v} with the basis vectors $\uvec{i}$ and $\uvec{j}$ scalars $a$ and $b$:
+\begin{equation*}
+	\frac{d}{dt}\bvec{v} = \frac{da}{dt}\uvec{i} + \frac{db}{dt}\uvec{j} \text{.}
+\end{equation*}
+In other words, the derivative of a vector is equivalent to the derivative of its components.
+This will allow us to analyze the movement of an object through kinematics in all three dimensions $x$, $y$, and $z$. Keep in mind that $\bvec{r}$---hence $x$, $y$, $z$, and $\theta$---are functions of time $t$ and we do not know how they are defined at this moment.
+
+\newpage
+
+One last thing: because we are dealing with vectors, Newton's law of gravitation can be rewritten in vector form:
+
+\begin{equation*}
+	\bvec{F} = m\bvec{a} = \frac{Gm_1m_2}{\|\bvec{r}\|^3}\bvec{r} \text{,}
+\end{equation*}
+where $r$ is the magnitude of $\bvec{r}$.
+
+To start off, let us analyze our basis vectors.
+We will use the notation $x'$ as the derivative of $x$ with respect to time $t$.
+Because they are not actually static in the system ($\uvec{x}$ and $\uvec{y}$ rotate about the origin), their movement must be taken into account:
+\begin{gather*}
+	\uvec{x} = (\cos\theta)\uvec{x}_0 + (\sin\theta)\uvec{y}_0 \\
+	\uvec{y} = (-\sin\theta)\uvec{x}_0 + (\cos\theta)\uvec{y}_0 \\
+	\uvec{z} = \uvec{z}_0 \text{.}
+\end{gather*}
+Taking their first derivatives, we get:
+\begin{gather*}
+	\uvec{x}' = (-\sin\theta)\theta'\uvec{x}_0 + (\cos\theta)\theta'\uvec{y}_0 = \theta'\uvec{y} \\
+	\uvec{y}' = -(\cos\theta)\theta'\uvec{x}_0 + (-\sin\theta)\theta'\uvec{y}_0 = -\theta'\uvec{x} \\
+	\uvec{z}' = 0 \text{.}
+\end{gather*}
+And their second derivatives:
+\begin{gather*}
+	\uvec{x}'' = \theta''\uvec{y} + \theta'\uvec{y}' =  - \theta'^2\uvec{x} \\
+	\uvec{y}'' = \theta''\uvec{x} - \theta'\uvec{x}' =  - \theta'^2\uvec{y} \text{.}
+\end{gather*}
+Given that this is uniform circular motion, $\theta'' = 0$.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The position vector $r$ is expressed in unit vector form as:
+\begin{equation*}
+	\bvec{r} = x\uvec{x} + y\uvec{y} + z\uvec{z} \text{.}
+\end{equation*}
+We can take the second derivative of our position vector $\bvec{r}$ to find the acceleration.
+\begin{equation*}
+	\bvec{a} = \bvec{r}'' = (x\uvec{x})'' + (y\uvec{y})'' + (z\uvec{z})''
+\end{equation*}
+Our acceleration vector is then expanded to:
+\begin{equation*}
+	\bvec{a} = x''\uvec{x} + 2x'\uvec{x}' + x\uvec{x}'' + y'\uvec{y} + 2y'\uvec{y}' + x\uvec{y}'' + z''\uvec{z} + 2z'\uvec{z}' + z\uvec{z}'' \text{.}
+\end{equation*}
+\begin{samepage}
+Substituting the derivatives of the basis vectors that we calculated earlier,
+\begin{align}
+	\bvec{a} &= x''\uvec{x} + 2x'(\theta'\uvec{y}) + x(- \theta'^2\uvec{x}) + y''\uvec{y} - 2y'(\theta'\uvec{x}) - x(\theta'\uvec{y}) + z''\uvec{z} \nonumber \\
+	\bvec{a} &= \left(x'' - \theta'^2x - 2y'\theta'\right)\uvec{x} + \left(y'' + 2x'\theta' - \theta'^2y\right)\uvec{y} + z''\uvec{z} \label{eqn:accel-rotate} \text{.}
+\end{align}
+This equation represents the general centripetal acceleration of an object in circular motion in three dimensions.
+To account for gravity, the acceleration due to gravity is expressed as:
+\begin{align*}
+	\bvec{F} = m_3\bvec{a} &= - \frac{Gm_1m_3}{\|\bvec{r}_1\|^3}\bvec{r}_1 - \frac{Gm_2m_3}{\|\bvec{r}_2\|^3}\bvec{r}_2 \\
+	\bvec{a} &= - \frac{Gm_1}{\|\bvec{r}_1\|^3}\bvec{r}_1 - \frac{Gm_2}{\|\bvec{r}_2\|^3}\bvec{r}_2 \text{.}
+\end{align*}
+Where $\bvec{r}_1$ and $\bvec{r}_2$ is the distance of our satellite from $m_1$ and $m_2$, respectively.
+$\bvec{r}_1$ and $\bvec{r}_2$ and their magnitudes, $\|\bvec{r}_1\|$ and $\|\bvec{r}_2\|$, are represented as:
+\begin{align*}
+	\bvec{r}_1 &= x\uvec{x} + y\uvec{y} + z\uvec{z} & \|\bvec{r}_1\| &= \sqrt{x^2 + y^2 + z^2} \\
+	\bvec{r}_2 &= (x - R)\uvec{x} + y\uvec{y} + z\uvec{z} & \|\bvec{r}_2\| &= \sqrt{(x - R)^2 + y^2 + z^2} \text{.}
+\end{align*}
+Written in unit vector form, the acceleration vector can be expanded for each dimension:
+\begin{equation*}
+	\bvec{a} = \left(-\frac{Gm_1}{\|\bvec{r}_1\|^3}x - \frac{Gm_2}{\|\bvec{r}_2\|^3}(x - R)\right)\uvec{x} + \left(-\frac{Gm_1}{\|\bvec{r}_1\|^3}y - \frac{Gm_2}{\|\bvec{r}_2\|^3}y\right)\uvec{y} + \left(-\frac{Gm_1}{\|\bvec{r}_1\|^3}z - \frac{Gm_2}{\|\bvec{r}_2\|^3}z\right)\uvec{z} \text{.}
+\end{equation*}
+Now that it is written in terms of its components, just like Equation \eqref{eqn:accel-rotate}, we can set the components of each vector equal to each other.
+\begin{align*}
+	\uvec{x} : \qquad &x'' - \theta'^2x - 2y'\theta' = -\frac{Gm_1}{\|\bvec{r}_1\|^3}x - \frac{Gm_2}{\|\bvec{r}_2\|^3}(x - R) \\
+	\uvec{y} : \qquad &y'' - \theta'^2y + 2x'\theta' = -\frac{Gm_1}{\|\bvec{r}_1\|^3}y - \frac{Gm_2}{\|\bvec{r}_2\|^3}y \\
+	\uvec{z} : \qquad &z'' = -\frac{Gm_1}{\|\bvec{r}_1\|^3}z - \frac{Gm_2}{\|\bvec{r}_2\|^3}z
+\end{align*}
+The variables can then be rearranged to give us our equations of motion:
+\begin{align}
+	x'' &= \theta'^2x + 2y'\theta' -\frac{Gm_1}{\|\bvec{r}_1\|^3}x - \frac{Gm_2}{\|\bvec{r}_2\|^3}(x - R) \label{eqn:eomx}\\
+	y'' &= \theta'^2y - 2x'\theta' -\frac{Gm_1}{\|\bvec{r}_1\|^3}y - \frac{Gm_2}{\|\bvec{r}_2\|^3}y \label{eqn:eomy}\\
+	z'' &= -\frac{Gm_1}{\|\bvec{r}_1\|^3}z - \frac{Gm_2}{\|\bvec{r}_2\|^3}z \label{eqn:eomz}\text{.}
+\end{align}
+\end{samepage}

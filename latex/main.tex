@@ -1,0 +1,122 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{bm}							% bold math symbols
+\usepackage{amsmath}					% equation formatting
+\usepackage{amssymb}					% equation symbols
+\usepackage{mathtools}					% amsmath extension, symbols
+\usepackage{siunitx}					% SI units package
+\usepackage{caption}					% extended caption functionality
+\usepackage{subcaption}					% provides subcaptions
+\usepackage{graphicx}					% images
+\usepackage{xcolor}						% driver-independent colors
+\usepackage{wrapfig}					% figure wrapping
+\usepackage{float}
+\usepackage{tikz}						% portable graphics format creator
+\usetikzlibrary{decorations.pathreplacing}
+
+\usepackage[margin=1in]{geometry}		% document layout package
+
+\usepackage[notes,backend=biber]{biblatex-chicago} % citation styling
+\usepackage{endnotes}
+\usepackage[english]{babel}				% language package
+\usepackage[autostyle=true]{csquotes}	% extended quotation functionality
+\usepackage{hyperref}					% hypertext support 
+
+\usepackage{setspace}					% easy text spacing
+\usepackage[toc,page]{appendix}
+%\usepackage{newtxtext,newtxmath} 		% times new roman, more up to date
+
+% Standard ihat and jhat are not implemented by default.
+% This provides the ihat and jhat without the dot at the top.
+% Is basic implementation, does not work with mathptmx
+%\newcommand{\ihat}{\mathbf {\hat \imath}}
+%\newcommand{\jhat}{\mathbf {\hat \jmath}}
+
+% Declare bibliography as the 'references.bib' file
+\bibliography{references}
+
+% Set half spacing
+\onehalfspacing
+%\renewcommand{\baselinestretch}{1.5}
+
+% Custom text formatting
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1em}
+
+% Renaming the 'Contents' field to 'Table of Contents'
+\addto\captionsenglish{ % required by babel
+	\renewcommand{\contentsname}{Table of Contents}
+}
+
+% implementation of a unit vector as given by 'egreg' from tex.stackexchange.com 
+% https://tex.stackexchange.com/questions/188775/how-to-type-a-particular-kind-of-unit-vector
+\newcommand{\uveci}{{\bm{\hat{\textnormal{\bfseries\i}}}}}
+\newcommand{\uvecj}{{\bm{\hat{\textnormal{\bfseries\j}}}}}
+\DeclareRobustCommand{\uvec}[1]{{%
+		\ifcat\relax\noexpand#1%
+		% it should be a Greek letter
+		\bm{\hat{#1}}%
+		\else
+		\ifcsname uvec#1\endcsname
+		\csname uvec#1\endcsname
+		\else
+		\bm{\hat{\mathbf{#1}}}% This really is the only important thing
+		\fi
+		\fi
+}} % technically, this is actually a basis vector!
+
+% PREFERED COMPILER: XeLaTeX!
+
+% this expresses a regualar vector
+\newcommand{\bvec}[1]{\bm{\mathbf{#1}}}
+
+\captionsetup[figure]{font=small,justification=centering}
+
+\allowdisplaybreaks
+
+\begin{document}
+	\input{titlepage}
+	
+	{\singlespacing \tableofcontents}
+	
+	\newpage
+	
+	\section{Introduction}
+	
+	\input{sections/intro}
+	
+	\section{Locations of Lagrange Points}
+	
+	\input{sections/section1}
+	
+	\section{Deriving Equations of Motion}
+	
+	\input{sections/section2}
+	
+	\section{Computing the Orbit around a Lagrange point}
+	
+	\input{sections/section3}
+	
+	\section{Conclusion}
+	
+	\input{sections/conclusion}
+	
+	\newpage
+	
+	
+	\printbibliography[
+	heading=bibintoc,
+	title={Bibliography}
+	]
+	
+	%\newpage
+	
+	%\appendix
+	
+	%\section{Eigenvalues for Larger Systems} \label{app:eigen}
+	
+	%\input{sections/appendixa}
+	
+\end{document}

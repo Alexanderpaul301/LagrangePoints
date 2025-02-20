@@ -1,0 +1,43 @@
+For the $3 \times 3$ linear system:
+\begin{align*}
+	ax_1 + bx_2 + cx_3 &= \lambda x_1 \\
+	dx_1 + ex_2 + fx_3 &= \lambda x_2 \\
+	gx_1 + hx_2 + ix_3 &= \lambda x_3
+\end{align*}
+let $\alpha = a - \lambda$, $\epsilon = e - \lambda$, and $\iota = i - \lambda$.
+\begin{align*}
+	\alpha x_1 + bx_2 + cx_3 &= 0 \\
+	dx_1 + \epsilon x_2 + fx_3 &= 0 \\
+	gx_1 + hx_2 + \iota x_3 &= 0
+\end{align*}
+Isolating for $x_1$ for the equation in the first row,
+\begin{equation*}
+	x_1 = - \frac{b}{\alpha} x_2 - \frac{c}{\alpha} x_3
+\end{equation*}
+Substituting $x_1$ in the remaining equations gives:
+\begin{align*}
+	\left(\epsilon - \frac{bd}{\alpha}\right)x_2 + \left(f - \frac{cd}{\alpha}\right)x_3 &= 0 \\
+	\left(h - \frac{bg}{\alpha}\right)x_2 + \left(\iota - \frac{cg}{\alpha}\right)x_3 &= 0 
+\end{align*}
+Isolating for $x_2$ for the equation in the first row of the remaining equations gives:
+\begin{equation*}
+	-\frac{f - \frac{cd}{\alpha}}{\epsilon - \frac{bd}{\alpha}}x_3 = x_2
+\end{equation*}
+Substituting $x_2$ for the last equations gives:
+\begin{equation*}
+	\frac{\left(h- \frac{bg}{\alpha}\right)\left(f - \frac{cd}{\alpha}\right)}{\epsilon - \frac{bd}{\alpha}}x_3 = \left(\iota - \frac{cg}{\alpha}\right)
+\end{equation*}
+The $x_3$ can be cancelled out of the equation, leaving:
+\begin{align}
+	\left(h - \frac{bg}{\alpha}\right)\left(f - \frac{cd}{\alpha}\right) &= \left(\iota - \frac{cg}{\alpha}\right)\left(\epsilon - \frac{bd}{\alpha}\right) \nonumber \\
+	\frac{1}{\alpha^2}(h\alpha - bg)(f\alpha - cd) &= \frac{1}{\alpha^2}(\iota \alpha - cg)(\epsilon \alpha - bd) \nonumber \\
+	(h\alpha - bg)(f\alpha - cd) &= (\iota \alpha - cg)(\epsilon \alpha - bd) \nonumber \\
+	\alpha^2fh - \alpha cdh - \alpha bfg + bcdg &= \alpha^2 \epsilon \iota - \alpha bd \iota - \alpha c \epsilon g + bcdg \nonumber \\
+	\alpha^2fh - \alpha cdh - \alpha bfg &= \alpha^2 \epsilon \iota - \alpha bd \iota - \alpha c \epsilon g \nonumber \\
+	\alpha fh - \alpha \epsilon \iota + bd \iota &- bfg + c \epsilon g - cdh = 0 \nonumber \\
+	\alpha (\epsilon \iota - \alpha f) - b(d \iota& - fg) + c(dh - \epsilon g) = 0
+\end{align}
+Then, replacing $\alpha$, $\epsilon$, and $\iota$:
+\begin{equation*}
+	(a - \lambda)[(e - \lambda)(i - \lambda) - (a - \lambda)f] - b[d(i - \lambda) - fg] + c[dh - (e- \lambda)g] = 0
+\end{equation*}
