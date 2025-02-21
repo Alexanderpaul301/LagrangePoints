@@ -11,31 +11,35 @@ m2 = 5.972e24 # kg
 R = 1.49598e11 # m
 radial_velocity = np.sqrt(G*(m1+m2)/R**3)
 
+# As defined before this function defines the acceleration of the system
 def LN(r):
     f1 = -G*m1/((r)*abs(r))
     f2 = -G*m2/((r-R)*abs(r-R))
     ang_v = G*r*(m1+m2)/(R**3)
     return ang_v + f1 + f2
 
-
+# Get the position of the L2 points
 L2 = root_scalar(LN, bracket=[1.50e11, 1.52e11]).root
 
-
+# returns length of vectors r1 and r2
 def r1(x,y,z):
     return np.sqrt(x**2 + y**2 + z**2)
-
 
 def r2(x,y,z):
     return np.sqrt((x-R)**2 + y**2 + z**2)
 
-
+# This function defines the equations of motion
 def EOM(t, X):
+    # X = [x, y, z, xdot, ydot, zdot]
+    # Xdot = [xdot, ydot, zdot, xddot, yddot, zddot]
     Xdot = np.zeros(6)
     Xdot[:3] = X[3:6]
     x, y, z = X[:3]
     xdot, ydot = X[3:5]
     R1 = r1(x,y,z)
     R2 = r2(x,y,z)
+
+    # ? Compute accelerations following the x, y, z directions
     xddot = (x*radial_velocity**2 + 2*radial_velocity*ydot - G*m1*x/(R1**3)
         - G*m2*(x-R)/(R2**3))
     yddot = (y*radial_velocity**2 - 2*radial_velocity*xdot - G*m1*y/(R1**3)
@@ -44,7 +48,7 @@ def EOM(t, X):
     Xdot[3:6] = xddot, yddot, zddot
     return Xdot
 
-
+# This function initialises the position vector
 def init_r(lpoint: float, pos: tuple):
     return np.array([lpoint+pos[0], pos[1], pos[2]])
 
@@ -116,12 +120,12 @@ def main():
     # A special number for reference
     super_number = .000001305493871*dist
 
-    traj1 = get_trajectory(45, (-1000,0,0), iydot=0)
+    # traj1 = get_trajectory(45, (-1000,0,0), iydot=0)
     traj2 = get_trajectory(400, (-1000,0,0))
-    traj3 = get_trajectory(400, (-2.5e8, 0, -3e8))
-    construct_3d_plot_L2(traj1, (-1000,0,0))
+    # traj3 = get_trajectory(400, (-2.5e8, 0, -3e8))
+    # construct_3d_plot_L2(traj1, (-1000,0,0))
     construct_3d_plot_L2(traj2, (-1000,0,0))
-    construct_3d_plot_L2(traj3, (-2.5e8, 0, -3e8))
+    # construct_3d_plot_L2(traj3, (-2.5e8, 0, -3e8))
 
 
 if __name__ == '__main__':
