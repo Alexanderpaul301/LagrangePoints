@@ -2,7 +2,6 @@ from scipy.optimize import root_scalar
 import matplotlib.pyplot as plt
 import numpy as np
 
-
 plt.rcParams['figure.constrained_layout.use'] = True
 plt.rcParams.update({'font.size': 12})
 
@@ -24,11 +23,19 @@ l1 = root_scalar(LN, bracket=[1.48e8, 1.49e8]).root
 l2 = root_scalar(LN, bracket=[1.50e8, 1.52e8]).root
 l3 = root_scalar(LN, bracket=[-1.52e8, -1.49e8]).root
 
+# ? Compute L4 and L5 points
+l4_x = R / 2
+l4_y = R * np.sqrt(3) / 2
+l5_x = R / 2
+l5_y = -R * np.sqrt(3) / 2
+
 # ? Print the distance between the Sun and the Lagrange points
 print('Lagrange points relative distance to the sun (km):')
 print('L1:', l1)
 print('L2:', l2)
 print('L3:', l3)
+print('L4:', (l4_x, l4_y))
+print('L5:', (l5_x, l5_y))
 
 # ? Define the domain to plot properly
 domain = np.arange(-2*R, 2*R, 100)
@@ -47,7 +54,6 @@ ax_kwargs = {
     'horizontalalignment' : 'center',
     'verticalalignment' : 'top'
 }
-
 
 # ? Plotting of the Earth and Sun on the same plot with L points
 ax1.plot(domain, range_)
@@ -68,8 +74,6 @@ ax1.annotate(
     verticalalignment='top')
 ax1.annotate('L3', xy=(l3,0), xytext=(0,15), **ax_kwargs)
 
-
-
 # ? Focus on the Earth and L1 L2 points
 ax2.plot(domain, range_)
 ax2.grid()
@@ -81,7 +85,6 @@ ax2.plot(R, 0, 'og')
 ax2.annotate('L1', xy=(l1,0), xytext=(0,15), **ax_kwargs)
 ax2.annotate('L2', xy=(l2,0), xytext=(0,15), **ax_kwargs)
 ax2.annotate('Earth', xy=(R,0), xytext=(0,15), **ax_kwargs)
-
 
 # ? Plotting of the Earth and Sun on the same plot with L points and orbit
 ax3.plot(domain, range_)
@@ -101,10 +104,13 @@ ax3.annotate(
     horizontalalignment='right',
     verticalalignment='top')
 ax3.annotate('L3', xy=(l3,0), xytext=(0,15), **ax_kwargs)
+ax3.plot(l4_x, l4_y, '.k')
+ax3.plot(l5_x, l5_y, '.k')
+ax3.annotate('L4', xy=(l4_x, l4_y), xytext=(0,15), **ax_kwargs)
+ax3.annotate('L5', xy=(l5_x, l5_y), xytext=(0,15), **ax_kwargs)
 
 # * Add Earth's orbit as a circle on the second plot
 earth_orbit = plt.Circle((0, 0), R, color='b', fill=False, linestyle='--')
 ax3.add_artist(earth_orbit)
-
 
 plt.show()
